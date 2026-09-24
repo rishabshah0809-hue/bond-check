@@ -1,8 +1,8 @@
 # bondcheck — CLAUDE.md
 
 Transparent risk analytics for Indian G-secs/SDLs (spec: docs/PROJECT_SPEC.md).
-Shows modelled risk, never buy/sell advice. Phases: 1 pricing (done); 2 data layer: DuckDB golden store, FRED, validation (done);
-3 curve engine (partly pre-built in src/curves, src/pricing/curve_risk.py).
+Shows modelled risk, never buy/sell advice. Phases: 1 pricing; 2 data layer (DuckDB, FRED, validation); 3 curve engine + curve analytics.
+India curves: user-uploaded CSV only (no FBIL/CCIL ingestion, no scraping). See docs/data_licensing_todo.md.
 
 ## Stack
 Python 3.11+, pandas, numpy, scipy, Plotly, Streamlit, pytest, ruff. Config in pyproject.toml.
@@ -26,6 +26,7 @@ Later: statsmodels, DuckDB/SQLite, Parquet.
 - Data fetch (when built): FRED API only; Indian data from files placed manually in data/raw.
 - Ask the user before assuming any market convention you are not sure about.
 - Do not build modules outside the current phase.
+- User-facing views show only series with series_catalog.public_display_ok = TRUE.
 
 ## Commands
 - Setup: python -m venv .venv && .venv/Scripts/pip install -e .[dev]

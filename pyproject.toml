@@ -3,7 +3,7 @@ name = "bondcheck"
 version = "0.1.0"
 description = "Transparent fixed-income risk analytics for Indian G-secs and SDLs"
 requires-python = ">=3.11"
-dependencies = ["pandas>=2.0", "numpy>=1.26", "scipy>=1.11", "streamlit>=1.30", "plotly>=5.18"]
+dependencies = ["pandas>=2.0", "numpy>=1.26", "scipy>=1.11", "streamlit>=1.30", "plotly>=5.18", "duckdb>=1.0"]
 
 [project.optional-dependencies]
 dev = ["pytest>=8", "ruff>=0.4"]

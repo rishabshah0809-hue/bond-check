@@ -1,0 +1,12 @@
+{
+ "_note": "ILLUSTRATIVE fixture in FRED API format - not real market data",
+ "seriess": [
+  {
+   "id": "DGS10",
+   "title": "Market Yield on U.S. Treasury Securities at 10-Year Constant Maturity (ILLUSTRATIVE fixture)",
+   "frequency_short": "D",
+   "units": "Percent",
+   "notes": "Fixture notes. Copyright, 2026, Example Owner. More text."
+  }
+ ]
+}

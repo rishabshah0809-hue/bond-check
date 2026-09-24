@@ -1,7 +1,8 @@
 # bondcheck — CLAUDE.md
 
 Transparent risk analytics for Indian G-secs/SDLs (spec: docs/PROJECT_SPEC.md).
-Shows modelled risk, never buy/sell advice. Phases: 1 = scaffold + pricing (done); 2 = curve engine, KRD, carry/roll-down.
+Shows modelled risk, never buy/sell advice. Phases: 1 pricing (done); 2 data layer: DuckDB golden store, FRED, validation (done);
+3 curve engine (partly pre-built in src/curves, src/pricing/curve_risk.py).
 
 ## Stack
 Python 3.11+, pandas, numpy, scipy, Plotly, Streamlit, pytest, ruff. Config in pyproject.toml.
@@ -9,6 +10,7 @@ Later: statsmodels, DuckDB/SQLite, Parquet.
 
 ## Layout
 - data/raw/{india,us}  raw downloads, untouched
+- data/golden.duckdb   golden store (observations, series_catalog); not committed
 - data/processed/      cleaned parquet; data/metadata/ sources + last_updated
 - src/{ingestion,validation,curves,pricing,risk,scenarios,portfolio,reports}
 - tests/               mirrors src/ (tests/pricing/ ...)
@@ -29,4 +31,5 @@ Later: statsmodels, DuckDB/SQLite, Parquet.
 - Setup: python -m venv .venv && .venv/Scripts/pip install -e .[dev]
 - Tests: .venv/Scripts/python -m pytest -q
 - Lint:  .venv/Scripts/ruff check .
-- App:   .venv/Scripts/streamlit run app/1_Bond_Calculator.py
+- App:   .venv/Scripts/streamlit run app/1_Bond_Calculator.py  (extra pages in app/pages/)
+- Refresh: .venv/Scripts/python -m src.ingestion.run_refresh --source fred  (needs .env)

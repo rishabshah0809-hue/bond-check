@@ -1,0 +1,27 @@
+[project]
+name = "bondcheck"
+version = "0.1.0"
+description = "Transparent fixed-income risk analytics for Indian G-secs and SDLs"
+requires-python = ">=3.11"
+dependencies = ["pandas>=2.0", "numpy>=1.26", "scipy>=1.11", "streamlit>=1.30", "plotly>=5.18"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.4"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["src*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]

@@ -1,7 +1,7 @@
 # bondcheck — CLAUDE.md
 
 Transparent risk analytics for Indian G-secs/SDLs (spec: docs/PROJECT_SPEC.md).
-Shows modelled risk, never buy/sell advice. Built in phases; Phase 1 = scaffold + pricing engine.
+Shows modelled risk, never buy/sell advice. Phases: 1 = scaffold + pricing (done); 2 = curve engine, KRD, carry/roll-down.
 
 ## Stack
 Python 3.11+, pandas, numpy, scipy, Plotly, Streamlit, pytest, ruff. Config in pyproject.toml.
@@ -21,6 +21,7 @@ Later: statsmodels, DuckDB/SQLite, Parquet.
 - Every model function has a docstring stating conventions and assumptions.
 - Every pricing function has pytest tests. Run tests after each change.
 - No scraping of non-official sites. No network calls in tests.
+- Data fetch (when built): FRED API only; Indian data from files placed manually in data/raw.
 - Ask the user before assuming any market convention you are not sure about.
 - Do not build modules outside the current phase.
 

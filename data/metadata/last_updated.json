@@ -1,0 +1,121 @@
+{
+  "fred": {
+    "CPIAUCSL": {
+      "fetched_from": "2026-07-02",
+      "last_obs_date": "2026-08-01",
+      "missing_in_batch": 0,
+      "raw_file_path": "data/raw/us/CPIAUCSL/20260924T200728Z.json",
+      "retrieved_at": "2026-09-24T20:07:28Z",
+      "rows_upserted": 2,
+      "status": "ok"
+    },
+    "DCOILBRENTEU": {
+      "fetched_from": "2026-08-23",
+      "last_obs_date": "2026-09-22",
+      "missing_in_batch": 1,
+      "raw_file_path": "data/raw/us/DCOILBRENTEU/20260924T200734Z.json",
+      "retrieved_at": "2026-09-24T20:07:34Z",
+      "rows_upserted": 22,
+      "status": "ok"
+    },
+    "DFF": {
+      "fetched_from": "2026-08-23",
+      "last_obs_date": "2026-09-22",
+      "missing_in_batch": 0,
+      "raw_file_path": "data/raw/us/DFF/20260924T200726Z.json",
+      "retrieved_at": "2026-09-24T20:07:26Z",
+      "rows_upserted": 31,
+      "status": "ok"
+    },
+    "DGS10": {
+      "fetched_from": "2026-08-23",
+      "last_obs_date": "2026-09-22",
+      "missing_in_batch": 1,
+      "raw_file_path": "data/raw/us/DGS10/20260924T200723Z.json",
+      "retrieved_at": "2026-09-24T20:07:23Z",
+      "rows_upserted": 22,
+      "status": "ok"
+    },
+    "DGS2": {
+      "fetched_from": "2026-08-23",
+      "last_obs_date": "2026-09-22",
+      "missing_in_batch": 1,
+      "raw_file_path": "data/raw/us/DGS2/20260924T200720Z.json",
+      "retrieved_at": "2026-09-24T20:07:20Z",
+      "rows_upserted": 22,
+      "status": "ok"
+    },
+    "DGS30": {
+      "fetched_from": "2026-08-23",
+      "last_obs_date": "2026-09-22",
+      "missing_in_batch": 1,
+      "raw_file_path": "data/raw/us/DGS30/20260924T200725Z.json",
+      "retrieved_at": "2026-09-24T20:07:25Z",
+      "rows_upserted": 22,
+      "status": "ok"
+    },
+    "DGS5": {
+      "fetched_from": "2026-08-23",
+      "last_obs_date": "2026-09-22",
+      "missing_in_batch": 1,
+      "raw_file_path": "data/raw/us/DGS5/20260924T200721Z.json",
+      "retrieved_at": "2026-09-24T20:07:21Z",
+      "rows_upserted": 22,
+      "status": "ok"
+    },
+    "DTWEXBGS": {
+      "fetched_from": "2026-08-19",
+      "last_obs_date": "2026-09-18",
+      "missing_in_batch": 1,
+      "raw_file_path": "data/raw/us/DTWEXBGS/20260924T200736Z.json",
+      "retrieved_at": "2026-09-24T20:07:36Z",
+      "rows_upserted": 23,
+      "status": "ok"
+    },
+    "GDPC1": {
+      "fetched_from": "2026-03-02",
+      "last_obs_date": "2026-04-01",
+      "missing_in_batch": 0,
+      "raw_file_path": "data/raw/us/GDPC1/20260924T200731Z.json",
+      "retrieved_at": "2026-09-24T20:07:31Z",
+      "rows_upserted": 2,
+      "status": "ok"
+    },
+    "PCEPILFE": {
+      "fetched_from": "2026-06-01",
+      "last_obs_date": "2026-07-01",
+      "missing_in_batch": 0,
+      "raw_file_path": "data/raw/us/PCEPILFE/20260924T200729Z.json",
+      "retrieved_at": "2026-09-24T20:07:29Z",
+      "rows_upserted": 2,
+      "status": "ok"
+    },
+    "T10YIE": {
+      "fetched_from": "2026-08-24",
+      "last_obs_date": "2026-09-23",
+      "missing_in_batch": 1,
+      "raw_file_path": "data/raw/us/T10YIE/20260924T200733Z.json",
+      "retrieved_at": "2026-09-24T20:07:33Z",
+      "rows_upserted": 23,
+      "status": "ok"
+    },
+    "UNRATE": {
+      "fetched_from": "2026-07-02",
+      "last_obs_date": "2026-08-01",
+      "missing_in_batch": 0,
+      "raw_file_path": "data/raw/us/UNRATE/20260924T200731Z.json",
+      "retrieved_at": "2026-09-24T20:07:31Z",
+      "rows_upserted": 2,
+      "status": "ok"
+    },
+    "VIXCLS": {
+      "fetched_from": "2026-08-23",
+      "last_obs_date": "2026-09-22",
+      "missing_in_batch": 0,
+      "raw_file_path": "data/raw/us/VIXCLS/20260924T200733Z.json",
+      "retrieved_at": "2026-09-24T20:07:33Z",
+      "rows_upserted": 22,
+      "status": "ok"
+    }
+  }
+}

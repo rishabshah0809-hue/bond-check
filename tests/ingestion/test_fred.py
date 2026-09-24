@@ -128,3 +128,29 @@ def test_write_meta_merges_and_keeps_previous_on_error(tmp_path):
                                         "error": "boom"}})
     d = json.loads(meta.read_text())["fred"]["DGS10"]
     assert d["last_obs_date"] == "2026-01-09" and d["last_error"] == "boom"
+
+
+def test_public_display_defaults_false_and_survives_refresh(con, tmp_path):
+    fake = FakeFred("DGS10_initial.json")
+    fred.ingest_series(con, "DGS10", "KEY", fetch=fake, now=NOW, raw_dir=tmp_path)
+    q = "SELECT public_display_ok FROM series_catalog WHERE series_id='DGS10'"
+    assert con.execute(q).fetchone() == (False,)
+    assert gs.set_public_display(con, ["DGS10", "NOPE"], True) == 1
+    fred.ingest_series(con, "DGS10", "KEY", fetch=fake, now=NOW, raw_dir=tmp_path)
+    assert con.execute(q).fetchone() == (True,)
+
+
+def test_catalog_migration_adds_column_to_old_db(tmp_path):
+    import duckdb
+
+    path = tmp_path / "old.duckdb"
+    old = duckdb.connect(str(path))
+    old.execute(
+        "CREATE TABLE series_catalog (series_id VARCHAR PRIMARY KEY, description VARCHAR,"
+        " unit VARCHAR, source VARCHAR, frequency VARCHAR, url VARCHAR, terms_note VARCHAR)"
+    )
+    old.execute("INSERT INTO series_catalog VALUES ('X','d','u','s','D','url','t')")
+    old.close()
+    c = gs.connect(path)
+    assert c.execute("SELECT public_display_ok FROM series_catalog").fetchone() == (False,)
+    c.close()

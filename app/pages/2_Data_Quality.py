@@ -44,15 +44,26 @@ summary = con.execute(
            count(*) FILTER (WHERE quality_flag = 'MISSING') AS missing,
            max(o.retrieved_at) AS retrieved_at,
            c.url, c.terms_note
-    FROM observations o LEFT JOIN series_catalog c USING (series_id)
+    FROM observations o JOIN series_catalog c USING (series_id)
+    WHERE c.public_display_ok
     GROUP BY o.series_id, c.description, c.unit, o.source, c.url, c.terms_note
     ORDER BY o.source, o.series_id
     """
 ).df()
+hidden = con.execute(
+    "SELECT count(*) FROM series_catalog WHERE NOT public_display_ok"
+).fetchone()[0]
 con.close()
 
+if hidden:
+    st.info(
+        f"{hidden} series hidden until their licence terms are reviewed "
+        "(approve with `python -m src.ingestion.catalog --approve <SERIES>`)."
+    )
+
 if summary.empty:
-    st.info(EMPTY_MSG)
+    if not hidden:
+        st.info(EMPTY_MSG)
     st.stop()
 
 today = date.today()

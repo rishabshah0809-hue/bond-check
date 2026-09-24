@@ -4,7 +4,10 @@ Tables
 - observations(series_id, obs_date, value, source, frequency, quality_flag,
   retrieved_at, raw_file_path, transformation), primary key (series_id, obs_date).
   ``value`` is NULL when the source published the date as missing; it is never filled.
-- series_catalog(series_id, description, unit, source, frequency, url, terms_note).
+- series_catalog(series_id, description, unit, source, frequency, url, terms_note,
+  public_display_ok). ``public_display_ok`` defaults to FALSE and is only set by
+  :func:`set_public_display` after a human has checked the source's terms; refreshes never
+  change it. User-facing views must show only series where it is TRUE.
 
 Upserts are idempotent: re-loading the same rows replaces them in place (INSERT OR
 REPLACE on the primary key), so row counts never grow from repeated loads.
@@ -45,8 +48,10 @@ CREATE TABLE IF NOT EXISTS series_catalog (
     source      VARCHAR,
     frequency   VARCHAR,
     url         VARCHAR,
-    terms_note  VARCHAR
+    terms_note  VARCHAR,
+    public_display_ok BOOLEAN NOT NULL DEFAULT FALSE
 );
+ALTER TABLE series_catalog ADD COLUMN IF NOT EXISTS public_display_ok BOOLEAN DEFAULT FALSE;
 """
 
 
@@ -76,10 +81,25 @@ def upsert_observations(con: duckdb.DuckDBPyConnection, df: pd.DataFrame) -> int
 
 
 def upsert_catalog(con: duckdb.DuckDBPyConnection, df: pd.DataFrame) -> None:
-    """Insert or replace series_catalog rows keyed on series_id."""
+    """Insert or update catalog metadata keyed on series_id; keeps public_display_ok."""
     cat = df[CATALOG_COLUMNS]  # noqa: F841
     cols = ", ".join(CATALOG_COLUMNS)
-    con.execute(f"INSERT OR REPLACE INTO series_catalog SELECT {cols} FROM cat")
+    updates = ", ".join(f"{c} = excluded.{c}" for c in CATALOG_COLUMNS[1:])
+    con.execute(
+        f"INSERT INTO series_catalog ({cols}) SELECT {cols} FROM cat "
+        f"ON CONFLICT (series_id) DO UPDATE SET {updates}"
+    )
+
+
+def set_public_display(con: duckdb.DuckDBPyConnection, series_ids: list[str], ok: bool) -> int:
+    """Set public_display_ok for catalog series (human decision after checking terms)."""
+    n = 0
+    for sid in series_ids:
+        n += con.execute(
+            "UPDATE series_catalog SET public_display_ok = ? WHERE series_id = ? RETURNING 1",
+            [ok, sid],
+        ).fetchall().__len__()
+    return n
 
 
 def last_obs_date(con: duckdb.DuckDBPyConnection, series_id: str):
